@@ -18,4 +18,8 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   validates :title, :body, presence: true
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title body user_id created_at updated_at]
+  end
 end
