@@ -1,19 +1,21 @@
 default: &default
-  adapter: postgresql
-  encoding: unicode
-  pool: 5
-  username: <%= ENV.fetch('POSTGRES_USER', 'postgres') %>
-  password: <%= ENV.fetch('POSTGRES_PASSWORD', 'postgres') %>
-  host: <%= ENV.fetch('POSTGRES_HOST', 'localhost') %>
-  port: <%= ENV.fetch('POSTGRES_PORT', '5432') %>
+  adapter: cockroachdb
+  host: <%= Rails.application.credentials.dig(:cockroachdb, :host) %>
+  port: 26257
+  user: <%= Rails.application.credentials.dig(:cockroachdb, :user) %>
+  password: <%= Rails.application.credentials.dig(:cockroachdb, :password) %>
+  database: <%= Rails.application.credentials.dig(:cockroachdb, :database) %>
+  sslmode: "verify-full"
+  sslrootcert: "./root.crt"
+  options: <%= Rails.application.credentials.dig(:cockroachdb, :option) %>
 
 development:
   <<: *default
-  database: rails_api_base_development
+  database: social_media_api_development
 
 test:
   <<: *default
-  database: rails_api_base_test<%= ENV['TEST_ENV_NUMBER'] %>
+  database: social_media_api_test<%= ENV['TEST_ENV_NUMBER'] %>
 
 # For production is recommended to set DATABASE_URL env variable.
 # It will take precedence over the config defined here.

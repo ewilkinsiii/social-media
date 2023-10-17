@@ -26,3 +26,6 @@ config/secrets.yml
 pickle-email-*.html
 rerun.txt
 yarn-debug.log*
+
+/config/master.key
+root.crt

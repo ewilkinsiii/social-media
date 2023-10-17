@@ -7,6 +7,7 @@ gem 'rails', '~> 7.0.8'
 
 gem 'activeadmin', '~> 3.0'
 gem 'active_storage_base64', '~> 2.0.0'
+gem 'activerecord-cockroachdb-adapter', '~> 7.0', '>= 7.0.3'
 gem 'arctic_admin', '~> 4.2.5'
 gem 'aws-sdk-s3', '~> 1.136', require: false
 gem 'bootsnap', '~> 1.16'
@@ -22,7 +23,6 @@ gem 'lograge', '~> 0.13'
 gem 'newrelic_rpm', '~> 9.5'
 gem 'oj', '~> 3.16'
 gem 'pagy', '~> 6.1'
-gem 'pg', '~> 1.5'
 gem 'puma', '~> 6.4'
 gem 'pundit', '~> 2.3'
 gem 'rack-cors', '~> 2.0'
@@ -69,7 +69,6 @@ end
 
 group :test do
   gem 'faker', '~> 3.2'
-  gem 'pg_query', '~> 4.2.3'
   gem 'prosopite', '~> 1.4.1'
   gem 'shoulda-matchers', '~> 5.3'
   gem 'simplecov', '~> 0.22.0', require: false
