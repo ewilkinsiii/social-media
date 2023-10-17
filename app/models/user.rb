@@ -4,13 +4,13 @@
 #
 # Table name: users
 #
-#  id                     :bigint          not null, primary key
+#  id                     :bigint           not null, primary key
 #  email                  :string
 #  encrypted_password     :string           default(""), not null
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  allow_password_change  :boolean          default(FALSE), not null
-#  sign_in_count          :bigint          default(0), not null
+#  sign_in_count          :bigint           default(0), not null
 #  current_sign_in_at     :datetime
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :inet
@@ -42,11 +42,18 @@ class User < ApplicationRecord
 
   before_validation :init_uid
 
+  has_many :posts, dependent: :destroy
+
   def self.from_social_provider(provider, user_params)
     where(provider:, uid: user_params['id']).first_or_create! do |user|
       user.password = Devise.friendly_token[0, 20]
       user.assign_attributes user_params.except('id')
     end
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[first_name last_name username email created_at current_sign_in_at current_sign_in_ip email id last_sign_in_at last_sign_in_ip
+       remember_created_at reset_password_sent_at sign_in_count updated_at]
   end
 
   def full_name
